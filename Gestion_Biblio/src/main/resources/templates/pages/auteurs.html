@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <title>Gestion Auteurs</title>
+</head>
+
+<body>
+    <div class="container">
+        <div align=center>
+            <h1>Gestion des Auteurs</h1>
+        </div>
+        <a th:href="@{/auteur/menu}" class="btn btn-primary">Menu</a>
+        <hr>
+        <div align=center>
+            <form th:action="@{/auteur/add}" method="get">
+                <div class="form-floating mb-3">
+                    <input type="text" name="nom" th:name="nom" id="nom" class="form-control"
+                        placeholder="ex. : Uzumaki Naruto" required />
+                    <label for="nom">Nom et Prénom</label>
+                </div>
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+            </form>
+        </div>
+        <hr>
+        <div>
+            <table class="table table-hover table-borderless caption-top mx-auto my-auto">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center">
+                            ID
+                        </th>
+                        <th class="text-center">
+                            Nom et Prénom
+                        </th>
+                                                <th class="text-center">
+                        	Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="auteur : ${auteurs}">
+                        <td class="text-center" th:utext="${auteur.getId()}">
+
+                        </td>
+                        <td class="text-center" th:utext="${auteur.getNom()}">
+
+                        <td class="text-center">
+                        	<a class="btn btn-danger" th:href="@{'remove/?id=' + ${auteur.getId()}}">Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

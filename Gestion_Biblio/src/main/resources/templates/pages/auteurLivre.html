@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <title>Les livres de chaque Auteur</title>
+</head>
+
+<body>
+    <div class="container">
+        <div align=center>
+            <h1>Les livres de chaque Auteur</h1>
+        </div>
+        <a th:href="@{/auteur/menu}" class="btn btn-primary">Menu</a>
+        
+        <div align=center>
+            <form th:action="@{/livre/aff}" method="post">
+                <div class="form-floating mb-3">
+                    <!-- <input type="" name="name" id="name" class="form-control" placeholder="ex. : Uzumaki Naruto"
+                        required /> -->
+                    <select class="form-control" th:name="books" name="books" id="books" >
+                        <option th:each="livre : ${livres}" th:value="${livre.getIsbn()}" th:text="${livre.getTitre()}">
+                        
+                        </option>
+                    </select>
+                    <label for="books">Livre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select th:name="authors" name="authors" id="authors" class="">
+                        <option th:each="auteur : ${auteurs}" 
+                        th:value="${auteur.getId()}" 
+                        th:text="${auteur.getNom()}">
+                        </option>
+                    </select>
+                    <label for="authors">Auteur</label>
+                </div>
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+            </form>
+        </div>
+        <hr>
+       
+        <hr>
+        <div>
+            <table class="table table-hover table-borderless caption-top mx-auto my-auto">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center">
+                            ID
+                        </th>
+                        <th class="text-center">
+                            Nom et Prénom
+                        </th>
+                        <th class="text-center">
+                            Livres
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="auteur : ${auteurs}">
+                        <td class="text-center" th:utext="${auteur.getId()}">
+
+                        </td>
+                        <td class="text-center" th:utext="${auteur.getNom()}">
+                        </td>
+                        <td class="text-center">
+                        	<ul th:each="livre : ${auteur.getLivres()}">
+                        		<li th:utext="${livre.getTitre()}"></li>
+                        	</ul>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
